@@ -1,0 +1,1018 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS — Monarc Archive
+   Semantic colors resolve from --mm-* (light default on :root; dark when html.dark).
+   Components use Tailwind tokens: bg-(--color-bg-base), text-(--color-accent), etc.
+   ============================================================ */
+
+/* --- Raw palette bridge (default = light; html.dark = original dark site) --- */
+:root {
+  color-scheme: dark;
+  --mm-bg-base: #000000;
+  --mm-bg-surface: #070707;
+  --mm-bg-elevated: #111111;
+  --mm-border: #202020;
+  --mm-border-bright: #f5f5f5;
+  --mm-text-primary: #f7f7f7;
+  --mm-text-secondary: #c6c6c6;
+  --mm-text-muted: #777777;
+  --mm-text-inverse: #050505;
+  --mm-accent: #ff1f2d;
+  --mm-accent-dim: #c91520;
+  --mm-accent-glow: rgba(255, 31, 45, 0.2);
+  --mm-accent-subtle: rgba(255, 31, 45, 0.1);
+  --mm-success: #22c55e;
+  --mm-warning: #f59e0b;
+  --mm-error: #ef4444;
+  --mm-shadow-sm: 0 1px 2px rgba(15, 40, 70, 0.06), 0 1px 3px rgba(15, 40, 70, 0.04);
+  --mm-shadow-md: 0 4px 16px rgba(15, 40, 70, 0.08), 0 2px 6px rgba(15, 40, 70, 0.05);
+  --mm-shadow-lg: 0 12px 32px rgba(15, 40, 70, 0.1), 0 4px 12px rgba(15, 40, 70, 0.06);
+  --mm-shadow-glow: 0 0 20px rgba(0, 140, 180, 0.12), 0 0 40px rgba(0, 140, 180, 0.06);
+  --hero-ellipse-a: rgba(0, 160, 200, 0.1);
+  --hero-ellipse-mid: rgba(0, 100, 130, 0.06);
+  --hero-blob-a-0: rgba(0, 160, 200, 0.12);
+  --hero-blob-a-1: rgba(0, 120, 160, 0.05);
+  --hero-blob-b-0: rgba(0, 150, 190, 0.1);
+  --hero-blob-b-1: rgba(0, 90, 120, 0.04);
+  --hero-grid-dot: rgba(0, 120, 160, 0.12);
+  --hero-vig-0: rgba(240, 248, 252, 0.35);
+  --hero-vig-1: rgba(220, 232, 242, 0.55);
+  --hero-side: rgba(0, 150, 190, 0.08);
+  --section-band-mid: color-mix(in oklab, var(--mm-bg-base) 70%, var(--mm-accent) 30%);
+  --section-band-mid-soft: color-mix(in oklab, var(--mm-bg-base) 78%, var(--mm-accent) 22%);
+  --section-cta-edge: color-mix(in oklab, var(--mm-bg-base) 82%, var(--mm-accent) 18%);
+}
+
+html.dark {
+  color-scheme: dark;
+  --mm-bg-base: #0d0d0b;
+  --mm-bg-surface: #171512;
+  --mm-bg-elevated: #211f1a;
+  --mm-border: #343028;
+  --mm-border-bright: #f2eadc;
+  --mm-text-primary: #f8f1e6;
+  --mm-text-secondary: #c8bdad;
+  --mm-text-muted: #938879;
+  --mm-text-inverse: #11100e;
+  --mm-accent: #ff3038;
+  --mm-accent-dim: #c91f27;
+  --mm-accent-glow: rgba(255, 48, 56, 0.16);
+  --mm-accent-subtle: rgba(255, 48, 56, 0.08);
+  --mm-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --mm-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --mm-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4);
+  --mm-shadow-glow: 0 0 24px var(--mm-accent-glow), 0 0 48px rgba(0, 200, 255, 0.06);
+  --hero-ellipse-a: rgba(0, 220, 255, 0.14);
+  --hero-ellipse-mid: rgba(0, 120, 160, 0.04);
+  --hero-blob-a-0: rgba(0, 220, 255, 0.2);
+  --hero-blob-a-1: rgba(0, 160, 210, 0.08);
+  --hero-blob-b-0: rgba(0, 190, 255, 0.14);
+  --hero-blob-b-1: rgba(0, 100, 140, 0.06);
+  --hero-grid-dot: rgba(0, 200, 255, 0.14);
+  --hero-vig-0: rgba(6, 14, 22, 0.25);
+  --hero-vig-1: rgba(4, 10, 18, 0.45);
+  --hero-side: rgba(0, 220, 255, 0.1);
+  --section-band-mid: color-mix(in oklab, var(--mm-bg-base) 36%, #070b10);
+  --section-band-mid-soft: color-mix(in oklab, var(--mm-bg-base) 56%, #0c1118);
+  --section-cta-edge: color-mix(in oklab, var(--mm-bg-base) 6%, #050a0f);
+}
+
+@theme inline {
+  /* --- Color Tokens (alias → --mm-*) --- */
+  --color-bg-base: var(--mm-bg-base);
+  --color-bg-surface: var(--mm-bg-surface);
+  --color-bg-elevated: var(--mm-bg-elevated);
+  --color-border: var(--mm-border);
+  --color-border-bright: var(--mm-border-bright);
+  --color-text-primary: var(--mm-text-primary);
+  --color-text-secondary: var(--mm-text-secondary);
+  --color-text-muted: var(--mm-text-muted);
+  --color-text-inverse: var(--mm-text-inverse);
+  --color-accent: var(--mm-accent);
+  --color-accent-dim: var(--mm-accent-dim);
+  --color-accent-glow: var(--mm-accent-glow);
+  --color-accent-subtle: var(--mm-accent-subtle);
+  --color-success: var(--mm-success);
+  --color-warning: var(--mm-warning);
+  --color-error: var(--mm-error);
+
+  /* --- Typography Scale --- */
+  --font-sans:  Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono:  "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+
+  --text-xs:    0.75rem;     /* 12px — labels, captions */
+  --text-sm:    0.875rem;    /* 14px — meta, secondary */
+  --text-base:  1rem;        /* 16px — body */
+  --text-lg:    1.125rem;    /* 18px — large body */
+  --text-xl:    1.25rem;     /* 20px — subheadings */
+  --text-2xl:   1.5rem;      /* 24px */
+  --text-3xl:   1.875rem;    /* 30px */
+  --text-4xl:   2.25rem;     /* 36px */
+  --text-5xl:   3rem;        /* 48px */
+  --text-6xl:   3.75rem;     /* 60px */
+  --text-7xl:   4.5rem;      /* 72px — hero display */
+
+  /* --- Spacing Scale (8px base) --- */
+  --space-1:    0.25rem;   /* 4px */
+  --space-2:    0.5rem;    /* 8px */
+  --space-3:    0.75rem;   /* 12px */
+  --space-4:    1rem;      /* 16px */
+  --space-5:    1.25rem;   /* 20px */
+  --space-6:    1.5rem;    /* 24px */
+  --space-8:    2rem;      /* 32px */
+  --space-10:   2.5rem;    /* 40px */
+  --space-12:   3rem;      /* 48px */
+  --space-16:   4rem;      /* 64px */
+  --space-20:   5rem;      /* 80px */
+  --space-24:   6rem;      /* 96px */
+  --space-28:   7rem;      /* 112px */
+  --space-32:   8rem;      /* 128px */
+
+  /* --- Border Radius --- */
+  --radius-sm:  0.25rem;   /* 4px */
+  --radius-md:  0.5rem;    /* 8px */
+  --radius-lg:  0.75rem;   /* 12px */
+  --radius-xl:  1rem;      /* 16px */
+  --radius-2xl: 1.5rem;    /* 24px */
+  --radius-full: 9999px;
+
+  /* --- Shadows --- */
+  --shadow-sm: var(--mm-shadow-sm);
+  --shadow-md: var(--mm-shadow-md);
+  --shadow-lg: var(--mm-shadow-lg);
+  --shadow-glow: var(--mm-shadow-glow);
+
+  /* --- Site layout max (do NOT use --container-* — Tailwind reserves those for max-w-sm, max-w-xl, etc.) --- */
+  --max-site: 1280px;
+
+  /* --- Motion --- */
+  --duration-fast:   150ms;
+  --duration-base:   250ms;
+  --duration-slow:   400ms;
+  --ease-out:        cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:     cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  font-size: var(--text-base);
+  line-height: 1.6;
+  min-height: 100dvh;
+}
+
+/* ============================================================
+   FOCUS STATES — Accessible, intentional
+   ============================================================ */
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   SELECTION
+   ============================================================ */
+
+::selection {
+  background-color: rgba(0, 140, 180, 0.22);
+  color: var(--color-text-primary);
+}
+
+html.dark ::selection {
+  background-color: rgba(0, 200, 255, 0.2);
+  color: var(--color-text-primary);
+}
+
+/* ============================================================
+   SCROLLBAR — Subtle, branded
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-bright);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Gradient text — keep most of the glyph near primary luminance so it stays legible on #080C10 */
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-text-primary) 0%,
+    #c8eef9 42%,
+    var(--color-accent) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero headline — brighter cyan wash + slow shimmer */
+@keyframes hero-gradient-shimmer {
+  0%,
+  100% {
+    background-position: 0% 45%;
+  }
+  50% {
+    background-position: 100% 55%;
+  }
+}
+
+.text-gradient-hero {
+  background: linear-gradient(
+    118deg,
+    #f2f8fc 0%,
+    #c8eef9 28%,
+    var(--color-accent) 52%,
+    #5ce7ff 78%,
+    var(--color-accent) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: hero-gradient-shimmer 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-gradient-hero {
+    animation: none;
+    background-position: 50% 50%;
+  }
+}
+
+/* Hero tension line — literal “fade” on the word fade */
+@keyframes hero-tension-fade-word {
+  0%,
+  100% {
+    opacity: 0.38;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.hero-tension-fade-word {
+  animation: hero-tension-fade-word 4.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-tension-fade-word {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+html:not(.dark) .text-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-text-primary) 0%,
+    #1a5f78 42%,
+    var(--color-accent) 100%
+  );
+}
+
+html:not(.dark) .hero-conic-halo {
+  opacity: 0.65;
+}
+
+html:not(.dark) .hero-signature-grid {
+  background-image: linear-gradient(
+      rgba(0, 120, 160, 0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(0, 110, 150, 0.07) 1px, transparent 1px);
+}
+
+/* ============================================================
+   LAYOUT UTILITIES
+   ============================================================ */
+
+.container-site {
+  width: 100%;
+  max-width: var(--max-site);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-site {
+    padding-inline: 2.5rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container-site {
+    padding-inline: 4rem;
+  }
+}
+
+.section-padding {
+  padding-block: var(--space-20);
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-block: var(--space-28);
+  }
+}
+
+/* Homepage & inner routes — denser vertical rhythm */
+.home-page .section-padding,
+.inner-page .section-padding {
+  padding-block: clamp(2.25rem, 4.5vw, 3.25rem);
+}
+
+@media (min-width: 768px) {
+  .home-page .section-padding,
+  .inner-page .section-padding {
+    padding-block: clamp(2.75rem, 4vw, 4rem);
+  }
+}
+
+/* Homepage rhythm overrides — use with .section-padding (placed after home rules for cascade) */
+.section-padding.section-home-tight {
+  padding-block: clamp(1.9rem, 3.6vw, 2.85rem);
+}
+@media (min-width: 768px) {
+  .section-padding.section-home-tight {
+    padding-block: clamp(2.15rem, 3.2vw, 3.35rem);
+  }
+}
+
+.section-padding.section-home-wide {
+  padding-block: clamp(2.85rem, 5.5vw, 4.5rem);
+}
+@media (min-width: 768px) {
+  .section-padding.section-home-wide {
+    padding-block: clamp(3.35rem, 4.8vw, 5.35rem);
+  }
+}
+
+/* Homepage — emphasized band (stronger vertical breathing room) */
+.section-padding.section-home-airy {
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+@media (min-width: 768px) {
+  .section-padding.section-home-airy {
+    padding-block: clamp(3.5rem, 6vw, 5.75rem);
+  }
+}
+
+/* Hero — slow atmospheric drift (respects reduced motion) */
+@keyframes hero-atmosphere-shift {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  33% {
+    opacity: 0.88;
+    transform: scale(1.06) translate3d(1.5%, -1%, 0);
+  }
+  66% {
+    opacity: 0.94;
+    transform: scale(1.03) translate3d(-1%, 0.5%, 0);
+  }
+}
+
+.hero-atmosphere-blob {
+  animation: hero-atmosphere-shift 32s ease-in-out infinite;
+}
+
+.hero-atmosphere-blob--delayed {
+  animation-delay: -12s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-atmosphere-blob,
+  .hero-atmosphere-blob--delayed {
+    animation: none;
+  }
+}
+
+/* Signature grid — very low contrast, engineering cue */
+@keyframes hero-grid-drift {
+  0% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.72;
+  }
+  100% {
+    opacity: 0.45;
+  }
+}
+
+.hero-signature-grid {
+  background-image: linear-gradient(
+      rgba(0, 200, 255, 0.09) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(0, 180, 230, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 40%, black 20%, transparent 72%);
+  animation: hero-grid-drift 14s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-signature-grid {
+    animation: none;
+    opacity: 0.55;
+  }
+}
+
+/* Hero — slow conic wash (signature “living” light, extremely subtle) */
+@keyframes hero-conic-drift {
+  from {
+    transform: translate(-50%, 0) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, 0) rotate(360deg);
+  }
+}
+
+.hero-conic-halo {
+  position: absolute;
+  pointer-events: none;
+  left: 50%;
+  top: -38%;
+  width: 165vmin;
+  height: 165vmin;
+  z-index: 0;
+  background: conic-gradient(
+    from 200deg at 50% 50%,
+    transparent 0deg,
+    rgba(0, 230, 255, 0.1) 48deg,
+    rgba(0, 200, 255, 0.085) 95deg,
+    rgba(0, 157, 199, 0.06) 130deg,
+    transparent 175deg,
+    transparent 360deg
+  );
+  animation: hero-conic-drift 140s linear infinite;
+  opacity: 1;
+  mix-blend-mode: screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-conic-halo {
+    animation: none;
+  }
+}
+
+/* Hero — horizon pulse (single thin band, engineering horizon) */
+@keyframes hero-horizon-glow {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.hero-horizon-band {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-accent) 72%, transparent) 50%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 20px color-mix(in oklab, var(--color-accent) 45%, transparent),
+    0 0 48px color-mix(in oklab, var(--color-accent) 22%, transparent);
+  animation: hero-horizon-glow 10s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-horizon-band {
+    animation: none;
+    opacity: 0.55;
+  }
+}
+
+/* ============================================================
+   SURFACE UTILITIES
+   ============================================================ */
+
+.surface {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+.surface-elevated {
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+}
+
+/* Footer — light: same canvas as hero/body; dark: card surface above page base */
+.mm-footer-bg {
+  background-color: var(--color-bg-base);
+}
+html.dark .mm-footer-bg {
+  background-color: var(--color-bg-surface);
+}
+
+/* ============================================================
+   GLOW UTILITIES
+   ============================================================ */
+
+.glow-accent {
+  box-shadow: var(--shadow-glow);
+}
+
+.border-glow {
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 16px var(--color-accent-glow);
+}
+
+/* ============================================================
+   ACCENT LINE — Used in section headers
+   ============================================================ */
+
+.accent-line {
+  display: inline-block;
+  width: 2.5rem;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-full);
+}
+
+/* ============================================================
+   PROSE — MDX content styles
+   ============================================================ */
+
+.prose-monarc {
+  color: var(--color-text-secondary);
+  max-width: 72ch;
+}
+
+.prose-monarc h1,
+.prose-monarc h2,
+.prose-monarc h3,
+.prose-monarc h4 {
+  color: var(--color-text-primary);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.prose-monarc h1 { font-size: var(--text-4xl); }
+.prose-monarc h2 { font-size: var(--text-3xl); }
+.prose-monarc h3 { font-size: var(--text-2xl); }
+
+.prose-monarc p {
+  margin-bottom: 1.25em;
+  line-height: 1.75;
+}
+
+.prose-monarc a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: rgba(0,200,255,0.3);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--duration-base) var(--ease-out);
+}
+
+.prose-monarc a:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+.prose-monarc code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.15em 0.4em;
+  color: var(--color-accent);
+}
+
+.prose-monarc pre {
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.5em;
+}
+
+.prose-monarc pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-text-primary);
+  font-size: 0.9rem;
+}
+
+.prose-monarc blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1.25rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-bottom: 1.5em;
+}
+
+.prose-monarc ul,
+.prose-monarc ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.25em;
+}
+
+.prose-monarc li {
+  margin-bottom: 0.4em;
+}
+
+.prose-monarc hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin-block: 3rem;
+}
+
+/* ============================================================
+   MONARC ARCHIVE STOREFRONT
+   ============================================================ */
+
+.store-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #050505 0%, #050505 42%, #181818 100%);
+}
+
+.store-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.66) 38%, rgba(0, 0, 0, 0.08) 74%),
+    radial-gradient(circle at 25% 55%, rgba(255, 31, 45, 0.1), transparent 30%);
+}
+
+.section-band {
+  background: #000;
+}
+
+.store-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.125rem;
+  padding: 0.9rem 2.2rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  transition: transform var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), background-color var(--duration-base) var(--ease-out);
+}
+
+.store-button:hover {
+  transform: translateY(-2px);
+}
+
+.store-button-primary {
+  border: 1px solid #fff;
+  background: #fff;
+  color: #070707;
+}
+
+.store-button-secondary {
+  border: 0;
+  border-bottom: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+}
+
+.store-link {
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 0.35rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.hero-photo {
+  position: relative;
+  z-index: 0;
+  min-height: 560px;
+  align-self: stretch;
+  margin-right: -4rem;
+  overflow: hidden;
+  border-left: 1px solid #1f1f1f;
+}
+
+.hero-photo img {
+  object-position: center;
+}
+
+.size-chip,
+.stack-chip {
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.size-chip {
+  min-width: 48px;
+  min-height: 44px;
+}
+
+.size-chip[aria-pressed="true"] {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+}
+
+.store-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+  transform: none;
+}
+
+.size-chip:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+  text-decoration: line-through;
+}
+
+.cart-stepper {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-weight: 800;
+}
+
+.signup-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.signup-form-compact {
+  grid-template-columns: 1fr auto;
+  align-items: start;
+}
+
+.signup-form input {
+  min-height: 48px;
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 0.125rem;
+  background: #050505;
+  color: var(--color-text-primary);
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+}
+
+.signup-form input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.signup-form button {
+  min-height: 48px;
+  border: 1px solid #fff;
+  border-radius: 0.125rem;
+  background: #fff;
+  color: #050505;
+  padding: 0.85rem 1.1rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.signup-form p {
+  grid-column: 1 / -1;
+}
+
+.launch-section {
+  background:
+    radial-gradient(circle at 80% 10%, rgba(255, 31, 45, 0.16), transparent 34%),
+    linear-gradient(135deg, #070707, #000);
+  border-block: 1px solid var(--color-border);
+}
+
+.launch-panel {
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  background: color-mix(in oklab, var(--color-bg-surface) 82%, transparent);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.launch-perk {
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.9rem;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 520px) {
+  .signup-form-compact {
+    grid-template-columns: 1fr;
+  }
+
+  .signup-form button {
+    width: 100%;
+  }
+}
+
+.stack-chip {
+  display: inline-flex;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.875rem;
+}
+
+.collection-panel {
+  min-height: 240px;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background:
+    linear-gradient(135deg, color-mix(in oklab, var(--color-bg-surface) 86%, var(--color-accent) 14%), var(--color-bg-surface));
+  padding: 1.5rem;
+  transition: transform var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out);
+}
+
+.brand-flag {
+  min-height: 360px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.36)),
+    url("/brand/reference/monarcarchive-designs.png") center 72% / cover;
+  border-block: 1px solid var(--color-border);
+}
+
+.collection-panel:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-accent);
+}
+
+.lookbook-frame {
+  display: flex;
+  min-height: 430px;
+  align-items: end;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  color: #fffaf1;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.lookbook-frame-1 { background: linear-gradient(160deg, #191713, #56483a 54%, #c4b69f); }
+.lookbook-frame-2 { background: linear-gradient(160deg, #09090b, #2f1014 56%, #ff3038); }
+.lookbook-frame-3 { background: linear-gradient(160deg, #27251f, #756b5e 58%, #d9d0c1); }
+.lookbook-frame-4 { background: linear-gradient(160deg, #11100e, #37342c 58%, #7c9b72); }
+
+.journal-card {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: var(--color-bg-surface);
+  transition: transform var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out);
+}
+
+.journal-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-accent);
+}
+
+.journal-card:hover .journal-card-art img {
+  transform: scale(1.04);
+}
+
+.journal-card-art,
+.journal-post-art {
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+  background: #050505;
+}
+
+.journal-card-art::after,
+.journal-post-art::after {
+  content: "MONARC ARCHIVE";
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  color: #fffaf1;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.journal-card-art::before,
+.journal-post-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.72) 100%),
+    radial-gradient(circle at 12% 18%, rgba(255, 31, 45, 0.18), transparent 30%);
+}
+
+.journal-post-art {
+  min-height: 420px;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .store-hero::before {
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.72) 48%, rgba(0, 0, 0, 0.16) 100%),
+      radial-gradient(circle at 18% 38%, rgba(255, 31, 45, 0.12), transparent 32%);
+  }
+
+  .hero-photo {
+    min-height: 0;
+    height: clamp(320px, 92vw, 420px);
+    align-self: auto;
+    margin-right: 0;
+    border-top: 1px solid #1f1f1f;
+    border-left: 0;
+  }
+
+  .hero-photo img {
+    object-position: center top;
+  }
+
+  .hero-product-wall {
+    min-height: 420px;
+  }
+
+  .hero-hanger {
+    width: 42%;
+  }
+}
